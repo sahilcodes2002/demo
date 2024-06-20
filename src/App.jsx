@@ -10,9 +10,9 @@ function App() {
   return (
     <div>
       <RecoilRoot>
-      <BrowserRouter>
+      <BrowserRouter basename="/demo">
         <Routes>
-          <Route path='/demo' element={<Homepage/>}></Route>
+          <Route path='/' element={<Homepage/>}></Route>
           <Route path='/signup' element={<Signup/>}></Route>
           <Route path='/signin' element={<Signin/>}></Route>
           <Route path='/dashboard' element={<Dashboard/>}></Route>
