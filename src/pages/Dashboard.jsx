@@ -7,29 +7,32 @@ import { allitems } from "../store/atoms/allcards";
 import { Cardcreate } from "../components/Cardcreate";
 import { refresh } from "../store/atoms/refresh";
 import axios from "axios";
+import { format } from "date-fns";
 
 export function Dashboard() {
   const [todo, setTodos] = useRecoilState(todos);
   const [toshow, setShow] = useRecoilState(allitems);
   const [fresh, setFresh] = useRecoilState(refresh);
   const [loading, setLoading] = useState(false);
-  if(todo.size==0){
+
+  if (todo.size === 0) {
     setShow(true);
   }
+
   useEffect(() => {
     const fetchTodos = async () => {
-        setLoading(true)
+      setLoading(true);
       try {
         const response = await axios.get("https://honoprisma.hamdidcarel.workers.dev/gettodo", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
-          }
+          },
         });
-        setTodos(response.data.Message.todo); // Adjust based on your API response structure
+        setTodos(response.data.Message.todo);
       } catch (error) {
         console.error("Error fetching todos", error);
-      }finally{
+      } finally {
         setLoading(false);
       }
     };
@@ -40,7 +43,7 @@ export function Dashboard() {
   // Group todos by date
   const groupedTodos = {};
   todo.forEach((td) => {
-    const date = new Date(td.created_at).toLocaleDateString();
+    const date = format(new Date(td.created_at), 'MM/dd/yyyy');
     if (!groupedTodos[date]) {
       groupedTodos[date] = [];
     }
@@ -51,7 +54,7 @@ export function Dashboard() {
   const sortedDates = Object.keys(groupedTodos).sort((a, b) => new Date(b) - new Date(a));
 
   // Sort todos within each date group by time (descending)
-  sortedDates.forEach(date => {
+  sortedDates.forEach((date) => {
     groupedTodos[date].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   });
 
@@ -76,10 +79,10 @@ export function Dashboard() {
         </div>
       </div>
       {loading && (
-            <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-              <div className="text-white">Loading...</div>
-            </div>
-          )}
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="text-white">Loading...</div>
+        </div>
+      )}
     </div>
   );
 }
