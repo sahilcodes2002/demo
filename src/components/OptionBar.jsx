@@ -24,6 +24,7 @@ export function Optionbar() {
         <button
           onClick={() => {
             localStorage.removeItem("token");
+            localStorage.removeItem("userinfo");
             navigate('/signin');
           }}
           className="hover:bg-gray-700 px-4 py-2 rounded"
