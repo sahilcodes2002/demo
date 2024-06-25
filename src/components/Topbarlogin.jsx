@@ -35,6 +35,7 @@ export function Topbarlogin() {
         <div className="space-x-4">
           <button onClick={()=>{
             localStorage.removeItem("token");
+            localStorage.removeItem("userinfo");
             navigate(`/signin`)
           }} className="bg-gray-700 hover:bg-gray-600 text-gray-100 font-semibold py-2 px-4 rounded-lg transition duration-300">
             log out
