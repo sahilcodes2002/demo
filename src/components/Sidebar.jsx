@@ -25,6 +25,7 @@ export function Sidebar() {
           </button>
           <button onClick={()=>{
             localStorage.removeItem("token");
+            localStorage.removeItem("userinfo");
             navigate(`/signin`)
           }} className="block w-48 py-2 px-4 hover:bg-gray-700 rounded">
             log out
@@ -35,6 +36,7 @@ export function Sidebar() {
             className="w-full bg-slate-600 hover:bg-black text-white font-bold py-2 px-4 rounded"
             onClick={() => {
               localStorage.removeItem("token");
+              localStorage.removeItem("userinfo");
               window.location.href = '/signin';
             }}
           >
