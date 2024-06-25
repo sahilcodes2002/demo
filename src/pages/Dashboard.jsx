@@ -43,7 +43,7 @@ export function Dashboard() {
   // Group todos by date
   const groupedTodos = {};
   todo.forEach((td) => {
-    const date = format(new Date(td.created_at), 'dd/MM/yyyy');
+    const date = format(new Date(td.created_at), 'MM/dd/yyyy');
     if (!groupedTodos[date]) {
       groupedTodos[date] = [];
     }
