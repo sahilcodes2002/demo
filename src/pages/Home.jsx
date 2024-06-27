@@ -10,10 +10,9 @@ export function Homepage(){
       <header className="py-4 px-6 bg-white shadow-md flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-800">DailyChits</h1>
         <nav>
-          <ul className="flex space-x-4">
-            <li><a href="#about" className="hover:text-gray-600">About</a></li>
-            <li><a href="#features" className="hover:text-gray-600">Features</a></li>
-            <li><Link to="/signup" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300">Sign Up</Link></li>
+          <ul className="flex space-x-2 md:space-x-4">
+            <li><Link to="/signup" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-2 md:py-2 md:px-4 rounded-lg transition duration-300 text-xs">Sign Up</Link></li>
+            <li><Link to="/signin" className="bg-blue-500 hover:bg-blue-600 text-white  py-2 px-2 md:py-2 md:px-4 rounded-lg transition duration-300 text-xs ">Sign In</Link></li>
           </ul>
         </nav>
       </header>
