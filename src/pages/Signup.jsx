@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil"
 import { todos } from "../store/atoms/todos";
 import { info } from "../store/atoms/userinfo"
+import { Link } from "react-router-dom"
 
 export function Signup() {
     const [firstName, setFirstName] = useState("")
