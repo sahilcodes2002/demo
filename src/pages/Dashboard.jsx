@@ -102,7 +102,7 @@ export function Dashboard() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
             />
-            <div className="relative inline-block text-left mr-2" ref={dropdownRef}>
+            <div className=" inline-block text-left mr-2" ref={dropdownRef}>
               <button
                 type="button"
                 className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
