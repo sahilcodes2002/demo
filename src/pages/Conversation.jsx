@@ -13,10 +13,12 @@ export function Conversation() {
   const allContacts = useRecoilValue(contacts);
   const [userdetails, setUserDetails] = useRecoilState(userDetails);
   const [newMessage, setNewMessage] = useState('');
+  const [busy , setbusy] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
   const inf = useRecoilValue(info);
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     // Fetch current user ID from local storage or API
@@ -62,24 +64,29 @@ export function Conversation() {
   };
 
   const sendMessage = async () => {
-    try {
-      const response = await axios.post(`https://honoprisma.hamdidcarel.workers.dev/createmessage`, 
-        {
-          receiver_id: parseInt(userId, 10), 
-          content: newMessage,
-        }, 
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
+    if(newMessage!=""){
+        try {
+            setbusy(true);
+          const response = await axios.post(`https://honoprisma.hamdidcarel.workers.dev/createmessage`, 
+            {
+              receiver_id: parseInt(userId, 10), 
+              content: newMessage,
+            }, 
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+    
+          setMessages(prevMessages => [...prevMessages, response.data.res]);
+          setNewMessage('');
+        } catch (error) {
+          console.error('Error sending message:', error);
+        }finally{
+            setbusy(false);
         }
-      );
-
-      setMessages(prevMessages => [...prevMessages, response.data.res]);
-      setNewMessage('');
-    } catch (error) {
-      console.error('Error sending message:', error);
     }
   };
   
@@ -90,8 +97,15 @@ export function Conversation() {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
-      sendMessage();
+      if(!busy){
+        sendMessage();
     }
+    }
+  };
+
+  const handleInputFocus = () => {
+    // Ensure the message input is visible when keyboard opens
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -111,29 +125,37 @@ export function Conversation() {
           <div className="text-gray-600">{userdetails ? userdetails.username : 'Loading...'}</div>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto px-4" style={{ maxHeight: '70vh' }}>
-        {messages.map((message, index) => (
-          <div 
-            key={index} 
-            className={`mb-4 ${message.sender_id === currentUserId ? 'self-end bg-green-200' : 'self-start bg-gray-200'} p-2 rounded-md shadow-md`}
-          >
-            {message.content}
-          </div>
-        ))}
+      <div className="flex-1 overflow-y-auto px-4" style={{ paddingBottom: '4rem' }}>
+        <div style={{ marginBottom: '4rem' }}>
+          {messages.map((message, index) => (
+            <div 
+              key={index} 
+              className={`mb-4 ${message.sender_id === currentUserId ? 'self-end bg-green-200' : 'self-start bg-gray-200'} p-2 rounded-md shadow-md`}
+            >
+              {message.content}
+            </div>
+          ))}
+        </div>
         <div ref={messagesEndRef} />
       </div>
-      <div className="bg-gray-200 p-4">
+      <div className="bg-gray-200 p-4 fixed bottom-0 left-0 right-0">
         <div className="flex">
           <textarea
+            ref={inputRef}
             className="flex-1 p-2 rounded-md shadow-md resize-none"
             placeholder="Type your message..."
             value={newMessage}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            onFocus={handleInputFocus}
           />
           <button
             className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
-            onClick={sendMessage}
+            onClick={()=>{
+                if(!busy){
+                    sendMessage();
+                }
+            }}
           >
             Send
           </button>
