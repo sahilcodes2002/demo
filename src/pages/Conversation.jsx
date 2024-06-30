@@ -128,6 +128,13 @@ export function Conversation() {
         </div>
       </div>
       <div className="flex-1 overflow-y-auto px-4" >
+        <div className='lg:hidden'>
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+  <div className="bg-gray-300 half-screen-height max-w-md p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-bold ">welcome to chat.......</h2>
+  </div>
+</div>
+        </div>
         {messages.map((message, index) => (
           <div 
             key={index} 
