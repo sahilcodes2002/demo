@@ -112,7 +112,7 @@ export function Conversation() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className='flex'>
+      <div className='fixed flex w-full'>
         <div className='bg-gray-200 mb-4 p-4 flex flex-col justify-center'>
           <div className='flex justify-center'>
             <button onClick={() => navigate('/messages')} className="text-gray-600 hover:text-gray-800 focus:outline-none">
