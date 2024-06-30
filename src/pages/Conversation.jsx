@@ -13,12 +13,12 @@ export function Conversation() {
   const allContacts = useRecoilValue(contacts);
   const [userdetails, setUserDetails] = useRecoilState(userDetails);
   const [newMessage, setNewMessage] = useState('');
-  const [busy, setBusy] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
   const inf = useRecoilValue(info);
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     // Fetch current user ID from local storage or API
@@ -64,29 +64,27 @@ export function Conversation() {
   };
 
   const sendMessage = async () => {
-    if (newMessage.trim() !== '' && !busy) {
-      try {
-        setBusy(true);
-        const response = await axios.post(`https://honoprisma.hamdidcarel.workers.dev/createmessage`, 
-          {
-            receiver_id: parseInt(userId, 10), 
-            content: newMessage,
-          }, 
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+    try {
+        setBusy(true)
+      const response = await axios.post(`https://honoprisma.hamdidcarel.workers.dev/createmessage`, 
+        {
+          receiver_id: parseInt(userId, 10), 
+          content: newMessage,
+        }, 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-        setMessages(prevMessages => [...prevMessages, response.data.res]);
-        setNewMessage('');
-      } catch (error) {
-        console.error('Error sending message:', error);
-      } finally {
-        setBusy(false);
-      }
+      setMessages(prevMessages => [...prevMessages, response.data.res]);
+      setNewMessage('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+    } finally{
+        setBusy(false)
     }
   };
   
@@ -97,7 +95,9 @@ export function Conversation() {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
-      sendMessage();
+      if(!busy){
+        sendMessage();
+      }
     }
   };
 
@@ -148,13 +148,12 @@ export function Conversation() {
             onFocus={handleInputFocus}
           />
           <button
-            className={`ml-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none`}
+            className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
             onClick={()=>{
                 if(!busy){
-                    sendMessage
+                    sendMessage();
                 }
             }}
-            
           >
             Send
           </button>
