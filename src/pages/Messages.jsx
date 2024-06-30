@@ -10,6 +10,7 @@ export function Messages() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     fetchContacts();
     fetchAllUsers();
