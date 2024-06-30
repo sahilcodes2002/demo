@@ -5,6 +5,8 @@ import { Dashboard } from './pages/Dashboard';
 import { Settings } from './pages/Settings';
 import { RecoilRoot } from 'recoil';
 import { Homepage } from './pages/Home';
+import { Messages } from './pages/Messages';
+import { Conversation } from './pages/Conversation';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path='/signin' element={<Signin />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/settings' element={<Settings />} />
+            <Route path='/messages' element={<Messages />} />
+            <Route path='/conversations/:userId' element={<Conversation />} />
           </Routes>
         </HashRouter>
       </RecoilRoot>
