@@ -10,7 +10,6 @@ export function Messages() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     fetchContacts();
     fetchAllUsers();
@@ -88,7 +87,7 @@ export function Messages() {
       </div>
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="bg-white p-4 rounded-lg shadow-md max-h-96 overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">New Message</h3>
               <button onClick={handleCloseModal} className="text-gray-600 hover:text-gray-800">
