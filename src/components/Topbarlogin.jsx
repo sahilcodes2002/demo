@@ -34,11 +34,12 @@ export function Topbarlogin() {
         </div>
         <div className="space-x-4">
           <button onClick={()=>{
-            localStorage.removeItem("token");
-            localStorage.removeItem("userinfo");
-            navigate(`/signin`)
+            //localStorage.removeItem("token");
+            //localStorage.removeItem("userinfo");
+            
+            navigate(`/messages`)
           }} className="bg-gray-700 hover:bg-gray-600 text-gray-100 font-semibold py-2 px-4 rounded-lg transition duration-300">
-            log out
+            Messages
           </button>
           
         </div>
