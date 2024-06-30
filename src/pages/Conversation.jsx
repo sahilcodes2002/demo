@@ -7,7 +7,7 @@ import { info } from '../store/atoms/userinfo';
 import { useNavigate } from 'react-router-dom';
 
 export function Conversation() {
-  const { userId } = useParams(); // Get userId from URL params
+  const { userId } = useParams(); 
   const [messages, setMessages] = useState([]);
   const allUsers = useRecoilValue(allusers);
   const allContacts = useRecoilValue(contacts);
