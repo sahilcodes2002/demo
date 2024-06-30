@@ -127,7 +127,7 @@ export function Conversation() {
           <div className="text-gray-600">{userdetails ? userdetails.username : 'Loading...'}</div>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto px-4" style={{ maxHeight: '70vh' }}>
+      <div className="flex-1 overflow-y-auto px-4" >
         {messages.map((message, index) => (
           <div 
             key={index} 
