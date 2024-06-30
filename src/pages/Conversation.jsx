@@ -7,7 +7,7 @@ import { info } from '../store/atoms/userinfo';
 import { useNavigate } from 'react-router-dom';
 
 export function Conversation() {
-  const { userId } = useParams(); 
+  const { userId } = useParams(); // Get userId from URL params
   const [messages, setMessages] = useState([]);
   const allUsers = useRecoilValue(allusers);
   const allContacts = useRecoilValue(contacts);
@@ -17,8 +17,6 @@ export function Conversation() {
   const inf = useRecoilValue(info);
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     // Fetch current user ID from local storage or API
@@ -39,7 +37,7 @@ export function Conversation() {
     return () => {
       clearInterval(id);
     };
-  }, [userId, allUsers, allContacts,currentUserId]);
+  }, [userId, allUsers, allContacts, currentUserId]);
 
   useEffect(() => {
     scrollToBottom();
@@ -100,22 +98,20 @@ export function Conversation() {
     <div className="flex flex-col h-full">
       <div className='flex'>
         <div className='bg-gray-200 mb-4 p-4 flex flex-col justify-center'>
-        <div className='flex justify-center'>
-        <button onClick={()=>{
-            navigate('/messages')
-        }} className="text-gray-600 hover:text-gray-800 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+          <div className='flex justify-center'>
+            <button onClick={() => navigate('/messages')} className="text-gray-600 hover:text-gray-800 focus:outline-none">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          </div>
         </div>
+        <div className="bg-gray-200 p-2 mb-4 flex-1">
+          <h2 className="text-xl font-bold">{userdetails ? userdetails.name : 'Loading...'}</h2>
+          <div className="text-gray-600">{userdetails ? userdetails.username : 'Loading...'}</div>
         </div>
-      <div className="bg-gray-200 p-2 mb-4 flex-1">
-        <h2 className="text-xl font-bold">{userdetails ? userdetails.name : 'Loading...'}</h2>
-        <div className="text-gray-600">{userdetails ? userdetails.username : 'Loading...'}</div>
       </div>
-      </div>
-      <div className="flex-1 overflow-y-auto px-4">
+      <div className="flex-1 overflow-y-auto px-4" style={{ maxHeight: '70vh' }}>
         {messages.map((message, index) => (
           <div 
             key={index} 
