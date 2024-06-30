@@ -156,14 +156,14 @@ export function Conversation() {
             onKeyDown={handleKeyDown}
           />
           <button
-            className={`ml-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none ${busy ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`ml-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none`}
             onClick={() => {
               if (!busy) {
                 sendMessage();
               }
             }}
           >
-            {busy ? 'Sending...' : 'Send'}
+            {'Send'}
           </button>
         </div>
       </div>
